@@ -59,7 +59,8 @@ function handleClear() {
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
   dropdown[0].selectedIndex = -1;
-  dropdown.change();
+  fireChangeEvent(dropdown[0]);
+  activeRow.find('select').prop('disabled', false);
   endEntryMode();
 }
 
@@ -69,7 +70,8 @@ function handleNotHome() {
   }
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
-  dropdown.val('1').change();
+  dropdown.val('1');
+  fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
 }
@@ -80,7 +82,8 @@ function handleRefused() {
   }
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
-  dropdown.val('2').change();
+  dropdown.val('2');
+  fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
 }
@@ -102,7 +105,8 @@ function handleWrongNumber() {
   }
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
-  dropdown.val('20').change();
+  dropdown.val('20');
+  fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
 }
@@ -113,7 +117,8 @@ function handleDisconnected() {
   }
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
-  dropdown.val('25').change();
+  dropdown.val('25');
+  fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
 }
@@ -134,6 +139,12 @@ function beginEntryMode() {
 function endEntryMode() {
   entryMode = false;
   $(gridViewSelector).removeClass('editrow');
+}
+
+function fireChangeEvent(changedElement) {
+  var changeEvent = document.createEvent("HTMLEvents");
+  changeEvent.initEvent("change", true, true);
+  changedElement.dispatchEvent(changeEvent);
 }
 
 function rowDown() {
