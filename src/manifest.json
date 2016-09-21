@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "VoteBuilder Shortcuts",
+  "description": "Provides usability improvements for VoteBuilder",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["https://www.votebuilder.com/MyListScriptGrid.aspx*"],
+      "js": ["jquery-3.1.0.min.js", "gridview.js"],
+      "css": ["gridview.css"]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}
