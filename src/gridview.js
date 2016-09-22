@@ -16,11 +16,33 @@ $(document).ready(function() {
   });
 
   $(window).keypress(function(e) {
+
+    // Don't listen to keyboard input if user is currently typing in textbox
+    var focused = $(document.activeElement);
+    if (focused.prop('nodeName') == 'TEXTAREA') {
+      return;
+    }
+
     var key = e.which;
 
     switch(key) {
       case 46: // .
         beginEntryMode();
+        break;
+      case 68: // D
+        handleDemocrat();
+        break;
+      case 76: // L
+        handleLaterVolunteer();
+        break;
+      case 77: // M
+        handleMaybeVolunteer();
+        break;
+      case 78: // N
+        handleNoVolunteer();
+        break;
+      case 89: // Y
+        handleYesVolunteer();
         break;
       case 99: // c
         handleClear();
@@ -57,11 +79,25 @@ function handleClear() {
     return;
   }
 
-  var dropdown = activeRow.find("select[name*='ResultID']").first();
-  dropdown[0].selectedIndex = -1;
-  fireChangeEvent(dropdown[0]);
+  var dropdowns = activeRow.find("select");
+  dropdowns.each(function() {
+    $(this)[0].selectedIndex = -1;
+    fireChangeEvent($(this)[0]);
+  });
   activeRow.find('select').prop('disabled', false);
   endEntryMode();
+}
+
+function handleDemocrat() {
+  if (activeRow == null || !entryMode) {
+    return;
+  }
+
+  var dropdown = activeRow.find("select[name*='218380']").first();
+  dropdown.val('920208');
+  fireChangeEvent(dropdown[0]);
+  endEntryMode();
+  rowDown();
 }
 
 function handleNotHome() {
@@ -71,6 +107,54 @@ function handleNotHome() {
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
   dropdown.val('1');
+  fireChangeEvent(dropdown[0]);
+  endEntryMode();
+  rowDown();
+}
+
+function handleNoVolunteer() {
+  if (activeRow == null || !entryMode) {
+    return;
+  }
+
+  var dropdown = activeRow.find("select[name*='218386']").first();
+  dropdown.val('920245');
+  fireChangeEvent(dropdown[0]);
+  endEntryMode();
+  rowDown();
+}
+
+function handleYesVolunteer() {
+  if (activeRow == null || !entryMode) {
+    return;
+  }
+
+  var dropdown = activeRow.find("select[name*='218386']").first();
+  dropdown.val('920243');
+  fireChangeEvent(dropdown[0]);
+  endEntryMode();
+  rowDown();
+}
+
+function handleMaybeVolunteer() {
+  if (activeRow == null || !entryMode) {
+    return;
+  }
+
+  var dropdown = activeRow.find("select[name*='218386']").first();
+  dropdown.val('920244');
+  fireChangeEvent(dropdown[0]);
+  endEntryMode();
+  rowDown();
+}
+
+function handleLaterVolunteer() {
+  if (activeRow == null || !entryMode) {
+    return;
+  }
+
+  var dropdown = activeRow.find("select[name*='218386']").first();
+  dropdown.val('920246');
   fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
