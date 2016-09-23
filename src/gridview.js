@@ -179,6 +179,7 @@ function handleMoved() {
 
   var dropdown = activeRow.find("select[name*='ResultID']").first();
   dropdown.val('5').change();
+  fireChangeEvent(dropdown[0]);
   endEntryMode();
   rowDown();
 }
